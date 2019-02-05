@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAuthenticationWeb", "Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{613AE22A-2185-40B4-ACB6-E4520FB5A17E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvanadeAPI", "AvanadeAPI\AvanadeAPI.csproj", "{51DF190D-BC92-4717-9686-6896948B441D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{1A9DFF49-6785-43BC-8281-18429A69135C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{613AE22A-2185-40B4-ACB6-E4520FB5A17E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{613AE22A-2185-40B4-ACB6-E4520FB5A17E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{613AE22A-2185-40B4-ACB6-E4520FB5A17E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51DF190D-BC92-4717-9686-6896948B441D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51DF190D-BC92-4717-9686-6896948B441D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51DF190D-BC92-4717-9686-6896948B441D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51DF190D-BC92-4717-9686-6896948B441D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A9DFF49-6785-43BC-8281-18429A69135C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A9DFF49-6785-43BC-8281-18429A69135C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A9DFF49-6785-43BC-8281-18429A69135C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A9DFF49-6785-43BC-8281-18429A69135C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
