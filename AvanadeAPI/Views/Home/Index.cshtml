@@ -44,6 +44,57 @@
     var t = new Table(10, 20);
     alert(t.getCellCount());
 
+    var arr = [];
+    arr.push('a');
+    arr.push('b');
+    arr.push('c');
+    arr.push('d');
+    arr.push('e');
+    arr.push('f');
+
+    var s = '';
+    var inv = '';
+
+    for (i = 0; i < arr.length; i++)
+        s += arr[i];
+    alert(s);
+    for (i = arr.length - 1; i >= 0; i--)
+        inv += arr[i];
+    alert(inv);
 
 
+    var p1 = {
+        'Nome': 'Mario',
+        'Cognome': 'Rossi',
+        'Eta': 99
+    }
+    var p2 = {
+        'Nome': 'Maria',
+        'Cognome': 'Verdi',
+        'Eta': 90
+    }
+    var p3 = {
+        'Nome': 'Mariuccio',
+        'Cognome': 'Gialli',
+        'Eta': 99
+    }
+
+    var arr_p = [];
+
+    arr_p.push(p1);
+    arr_p.push(p2);
+    arr_p.push(p3);
+
+    var table_head = '<table  class="table table-striped"><thead><tr><th>Nome</th><th>Cognome</th><th>Eta</th></tr></thead><tbody>';
+    document.write(table_head);
+    for (var i = 0; i < arr_p.length; i++) {
+        var row = '<tr>';
+        row += '<td>' + arr_p[i].Nome + '</td>';
+        row += '<td>' + arr_p[i].Cognome + '</td>';
+        row += '<td>' + arr_p[i].Eta + '</td>';
+        row += '</tr>';
+        document.write(row);
+    }
+    var table_foot = '</tbody></table>';
+    document.write(table_foot);
 </script>
