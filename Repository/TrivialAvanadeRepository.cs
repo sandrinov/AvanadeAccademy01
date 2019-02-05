@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class AvanadeRepository
+    public class TrivialAvanadeRepository: IAvanadeRepository
     {
         private List<Employee> lst;
-        public AvanadeRepository()
+        public TrivialAvanadeRepository()
         {
             lst = new List<Employee>()
             {

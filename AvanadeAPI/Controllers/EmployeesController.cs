@@ -10,11 +10,15 @@ namespace AvanadeAPI.Controllers
 {
     public class EmployeesController : ApiController
     {
-        private AvanadeRepository _repository;
+        private IAvanadeRepository _repository;
 
         public EmployeesController()
         {
-            _repository = new AvanadeRepository();
+            _repository = new TrivialAvanadeRepository();
+        }
+        public EmployeesController(IAvanadeRepository repository)
+        {
+            _repository = repository;
         }
         [Route("api/getemployees", Name = "GetAllEmployees")]
         public List<Employee> GetAllEmployees()
