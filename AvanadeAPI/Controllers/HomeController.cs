@@ -10,8 +10,15 @@ namespace AvanadeAPI.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            List<String> lst = new List<string>();
+            lst.Add("lkjhjlkh");
 
+            foreach (String s in lst)
+            {
+
+            }
+
+            String[] lst_s = lst.ToArray();
             return View();
         }
     }
