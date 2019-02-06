@@ -55,23 +55,26 @@
                     // read the message from the server
                     var response = xmlHttp.responseText;
                     var employees = eval(response);
+                    var table = '';
                     var table_head = '<table  class="table table-striped"><thead><tr><th>Id</th><th>Nome</th><th>Cognome</th></tr></thead><tbody>';
-                    myDiv.innerHTML = table_head;
+                    table += table_head;
                     for (var i = 0; i < employees.length; i++) {
                         var eployee = employees[i];
-                        myDiv.innerHTML += '<tr>';
-                        myDiv.innerHTML += '<td>' + eployee.Id + '</td>';
-                        myDiv.innerHTML += '<td>' + eployee.FirstName + '</td>';
-                        myDiv.innerHTML += '<td>' + eployee.LastName + '</td>';
-                        myDiv.innerHTML += '</tr>';
+                        var row = '';
+                        row += '<tr>';
+                        row += '<td>' + eployee.Id + '</td>';
+                        row += '<td>' + eployee.FirstName + '</td>';
+                        row += '<td>' + eployee.LastName + '</td>';
+                        row += '</tr>';
+                        table += row;
                     }
                 }// end status 200
                 else {
 
                 }
             }// end ready state 4
-            var table_foot = '</tbody></table>';
-            myDiv.innerHTML += table_foot;
+            table += '</tbody></table>';
+            myDiv.innerHTML = table;
         }
 
         function createXmlHttpRequestObject() {
