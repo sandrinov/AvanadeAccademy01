@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Wether in your City</h2>
+
+<div class="container">
+    <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" class="form-control" id="city">
+    </div>
+    @*<div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="pwd">
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox"> Remember me</label>
+        </div>*@
+    <button type="button" id="btn_getwether" class="btn btn-primary">Get Wether</button>
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var api_key = '40c134aae99afa3d519e077b42be3859';
+        //https://samples.openweathermap.org/data/2.5/weather?q=milano&appid=b6907d289e10d714a6e88b30761fae22
+        $('#btn_getwether').on('click', function () {
+            var city = $('#city').val();
+            var server = 'https://samples.openweathermap.org/data/2.5/weather';
+            var url = server + '?q=' + city;
+            url += '&appid=' + api_key;
+
+            $.ajax({
+                url: url,
+                //crossDomain: true,
+                dataType: 'jsonp',
+                headers: {
+                    'Access-Control-Allow-Credentials': true,
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': '*',
+                    'Access-Control-Allow-Headers': '*',
+                },
+            }).done(function (data) {
+                alert('data');
+            });// end callback
+        });// end btn click
+    });//end jquery
+
+</script>
+

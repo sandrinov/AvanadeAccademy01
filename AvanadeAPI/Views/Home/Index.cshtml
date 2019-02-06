@@ -3,16 +3,23 @@
     <div class="row">
         <div class="col-lg-3">
             <button type="button"
-                    class="btn btn-primary"
-                    onclick="getEmployees()">
+                    class="btn btn-primary" id="btn_getallemployees">
                 Get Employees
             </button>
         </div>
     </div>
     <div class="row">
-        <div id="result">
-
-        </div>
+        <table class="table table-striped" id="tbl_employees">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
 </div>
 <button id="btn_showmodal" style="display:none" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
@@ -27,7 +34,7 @@
                 <h4 class="modal-title">Employee Details</h4>
             </div>
             <div class="modal-body" id="myDetails">
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -39,6 +46,27 @@
 
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#btn_getallemployees').on('click', function () {
+            $.ajax({
+                url: "/api/getemployees",
+            }).done(function (employees) {
+                //var employees = eval(data);
+                $(employees).each(function (i, employee) {
+                    var row = '';
+                    row += '<tr>';
+                    row += '<td>' + employee.Id + '</td>';
+                    row += '<td>' + employee.FirstName + '</td>';
+                    row += '<td>' + employee.LastName + '</td>';
+                    row += '<td><i class="fa fa-question-circle" onClick=getDetails(' + employee.Id + ')></i></td>';
+                    row += '</tr>';
+                    $("#tbl_employees tbody").append(row);
+                });
+            });
+
+        });//end btn_click
+    });//end jquery
 
     var xmlHttp = createXmlHttpRequestObject();
 
@@ -85,7 +113,7 @@
                     row += '<td>' + eployee.Id + '</td>';
                     row += '<td>' + eployee.FirstName + '</td>';
                     row += '<td>' + eployee.LastName + '</td>';
-                    row += '<td><i class="fa fa-question-circle" onClick=getDetails(' + eployee.Id +')></i></td>';
+                    row += '<td><i class="fa fa-question-circle" onClick=getDetails(' + eployee.Id + ')></i></td>';
                     row += '</tr>';
                     table += row;
                 }
@@ -99,7 +127,7 @@
     }
 
     function getDetails(id) {
-        xmlHttp.open("GET", "/api/getemployee?Id="+id, true);
+        xmlHttp.open("GET", "/api/getemployee?Id=" + id, true);
         xmlHttp.onreadystatechange = handleDetailsResponse;
         xmlHttp.send(null);
     }
@@ -110,11 +138,11 @@
             if (xmlHttp.status == 200) {
                 // read the message from the server
                 var response = xmlHttp.responseText;
-                
+
                 //var table = '';
                 //var table_head = '<table  class="table table-striped"><thead><tr><th>Id</th><th>Nome</th><th>Cognome</th><th>Hire Date</th></tr></thead><tbody>';
                 //table += table_head;
-                
+
                 //var row = '';
                 //row += '<tr>';
 
@@ -129,7 +157,7 @@
             }
         }// end ready state 4
         //table += '</tbody></table>';
-        myDetails.innerHTML = '<p>' + response.substring(7, 1)+'</p>';
+        myDetails.innerHTML = '<p>' + response.substring(7, 1) + '</p>';
         var btn_modal = document.getElementById('btn_showmodal');
         btn_modal.click(false);
     }

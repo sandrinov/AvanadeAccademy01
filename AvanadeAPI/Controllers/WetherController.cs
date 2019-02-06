@@ -7,21 +7,15 @@ using System.Web.Mvc;
 
 namespace AvanadeAPI.Controllers
 {
-   
-    public class HomeController : Controller
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    public class WetherController : Controller
     {
+        // GET: Wether
         public ActionResult Index()
         {
-            List<String> lst = new List<string>();
-            lst.Add("lkjhjlkh");
-
-            foreach (String s in lst)
-            {
-
-            }
-
-            String[] lst_s = lst.ToArray();
             return View();
         }
+
+       
     }
 }
