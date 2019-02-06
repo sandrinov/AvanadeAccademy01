@@ -34,7 +34,7 @@
 
             $.ajax({
                 url: url,
-                
+                headers: { 'Access-Control-Allow-Headers':'Content-Type'}
             }).done(function (data) {
 
                 var x = 0;

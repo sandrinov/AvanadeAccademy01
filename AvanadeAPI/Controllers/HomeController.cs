@@ -23,5 +23,10 @@ namespace AvanadeAPI.Controllers
             String[] lst_s = lst.ToArray();
             return View();
         }
+
+        public ActionResult NewPage()
+        {
+            return View();
+        }
     }
 }

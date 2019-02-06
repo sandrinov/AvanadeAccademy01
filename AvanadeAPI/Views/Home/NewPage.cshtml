@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "NewPage";
+}
+
+<div class="row">
+    <div class="col-sm-4">
+
+        <h2>Employee List</h2>
+        <select id="ddl_employees"></select>
+    </div>
+    <div class="col-sm-8">
+        <div class="container">
+            <h2>Employee Details</h2>
+            <div class="panel panel-default" id="panel_container">
+                <div class="panel-heading" id="panel_heading"></div>
+                <div class="panel-body" id="panel_body">
+                    <p><label>Is Active</label><div id="isactive"></div></p>
+                    <p><label>Hire Date</label><div id="hiredate"></div></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $.ajax({
+            url: "/api/getemployees",
+        }).done(function (employees) {
+            //var employees = eval(data);
+            var $dropdown = $("#ddl_employees");
+            $.each(employees, function () {
+                $dropdown.append($("<option />").val(this.Id).text(this.FirstName + ' ' + this.LastName));
+            });
+        });
+
+        $("#ddl_employees").on('change', function () {
+            var id = $(this).children("option:selected").val();
+            $.ajax({
+                url: '/api/getemployee?Id=' + id
+            }).done(function (employee) {
+                $('#panel_heading').text(employee.FirstName + ' ' + employee.LastName);
+                $('#isactive').text(employee.IsActive);
+                $('#hiredate').text(employee.HireDate);
+            });
+        });
+
+    });
+</script>
