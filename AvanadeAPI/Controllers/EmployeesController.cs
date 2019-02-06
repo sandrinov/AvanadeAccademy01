@@ -25,5 +25,10 @@ namespace AvanadeAPI.Controllers
         {
             return _repository.GetAllEmployees();
         }
+        [Route("api/getemployee", Name = "GetEmployeeById")]
+        public Employee GetEmployeeById(int Id)
+        {
+            return _repository.GetEmployeeById(Id);
+        }
     }
 }
