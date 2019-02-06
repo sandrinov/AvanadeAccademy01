@@ -1,100 +1,193 @@
 ﻿
-<div class="container">
-    <h2 id="hello_h2">hello Home!</h2>
-</div>
-<script type="text/javascript">
-    function Table(rows, columns) {
-        // save parameter values to local variables
-        var _rows = rows;
-        var _columns = columns;
-        // return the number of table cells
-        this.getCellCount = function () {
-            return _rows * _columns;
-        };
-    }
+<div class="container" style="margin-top: 10px">
+    <div class="row">
+        <div class="col-lg-3">
+            <button 
+                    type="button" 
+                    class="btn btn-primary" 
+                    onclick="getEmployees()">Get Employees</button>
+        </div>
+    </div>
+    <div class="row">
+        <div id="result">
+
+        </div>
+    </div>
+</div>   
 
 
 
-    // "Hello, World" class
-    function HelloWorld(hour) {
-        // class "constructor" initializes this.hour field
-        if (hour) {
-            // if the hour parameter has a value, store it as a class field
-            this.hour = hour;
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+
+        var xmlHttp = createXmlHttpRequestObject();
+
+        function getEmployees() {           
+            if (xmlHttp) {
+                try {
+                    // initiate reading the async.txt file from the server
+                    xmlHttp.open("GET", "/api/getemployees", true);
+                    xmlHttp.onreadystatechange = handleRequestStateChanged;
+                    xmlHttp.send(null);
+                }
+                // display an error in case of failure
+                catch (e) {
+                    alert("Can't connect to server:\n" + e.toString());
+                }
+            }
         }
-        else {
-            // if the hour parameter doesn't exist, save the current hour
-            var date = new Date();
-            this.hour = date.getHours();
+        function handleRequestStateChanged() {
+            myDiv = document.getElementById("result");
+
+            // display the status of the request
+            if (xmlHttp.readyState == 1) {
+                myDiv.innerHTML += "<p>Request status: 1 (loading)</p>";
+            }
+            else if (xmlHttp.readyState == 2) {
+                myDiv.innerHTML += "<p>Request status: 2 (loaded)</p>";
+            }
+            else if (xmlHttp.readyState == 3) {
+                myDiv.innerHTML += "<p>Request status: 3 (interactive)</p>";
+            }
+            // when readyState is 4, we also read the server response
+            else if (xmlHttp.readyState == 4) {
+                if (xmlHttp.status == 200) {
+                    // read the message from the server
+                    var response = xmlHttp.responseText;
+                    var employees = eval(response);
+                    var table_head = '<table  class="table table-striped"><thead><tr><th>Id</th><th>Nome</th><th>Cognome</th></tr></thead><tbody>';
+                    myDiv.innerHTML = table_head;
+                    for (var i = 0; i < employees.length; i++) {
+                        var eployee = employees[i];
+                        myDiv.innerHTML += '<tr>';
+                        myDiv.innerHTML += '<td>' + eployee.Id + '</td>';
+                        myDiv.innerHTML += '<td>' + eployee.FirstName + '</td>';
+                        myDiv.innerHTML += '<td>' + eployee.LastName + '</td>';
+                        myDiv.innerHTML += '</tr>';
+                    }
+                }// end status 200
+                else {
+
+                }
+            }// end ready state 4
+            var table_foot = '</tbody></table>';
+            myDiv.innerHTML += table_foot;
         }
-        // display greeting
-        this.DisplayGreeting = function () {
-            if (this.hour >= 22 || this.hour <= 5)
-                document.write("Goodnight, world!");
+
+        function createXmlHttpRequestObject() {
+            // xmlHttp will store the reference to the XMLHttpRequest object
+            var xmlHttp;
+            // try to instantiate the native XMLHttpRequest object
+            try {
+                // create an XMLHttpRequest object
+                xmlHttp = new XMLHttpRequest();
+            }
+            catch (e) {
+                // assume IE6 or older
+                try {
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHttp");
+                }
+                catch (e) { }
+            }
+            // return the created object or display an error message
+            if (!xmlHttp)
+                alert("Error creating the XMLHttpRequest object.");
             else
-                document.write("Hello, world!");
+                return xmlHttp;
         }
-    }
 
-    // create class instance
-    var myHello = new HelloWorld();
-    // call method
-    myHello.DisplayGreeting();
+        function Table(rows, columns) {
+            // save parameter values to local variables
+            var _rows = rows;
+            var _columns = columns;
+            // return the number of table cells
+            this.getCellCount = function () {
+                return _rows * _columns;
+            };
+        }
+        // "Hello, World" class
+        function HelloWorld(hour) {
+            // class "constructor" initializes this.hour field
+            if (hour) {
+                // if the hour parameter has a value, store it as a class field
+                this.hour = hour;
+            }
+            else {
+                // if the hour parameter doesn't exist, save the current hour
+                var date = new Date();
+                this.hour = date.getHours();
+            }
+            // display greeting
+            this.DisplayGreeting = function () {
+                if (this.hour >= 22 || this.hour <= 5)
+                    document.write("Goodnight, world!");
+                else
+                    document.write("Hello, world!");
+            }
+        }
+        /*
+            // create class instance
+            var myHello = new HelloWorld();
+            // call method
+            myHello.DisplayGreeting();
 
-    var t = new Table(10, 20);
-    alert(t.getCellCount());
+            var t = new Table(10, 20);
+            alert(t.getCellCount());
 
-    var arr = [];
-    arr.push('a');
-    arr.push('b');
-    arr.push('c');
-    arr.push('d');
-    arr.push('e');
-    arr.push('f');
+            var arr = [];
+            arr.push('a');
+            arr.push('b');
+            arr.push('c');
+            arr.push('d');
+            arr.push('e');
+            arr.push('f');
 
-    var s = '';
-    var inv = '';
+            var s = '';
+            var inv = '';
 
-    for (i = 0; i < arr.length; i++)
-        s += arr[i];
-    alert(s);
-    for (i = arr.length - 1; i >= 0; i--)
-        inv += arr[i];
-    alert(inv);
+            for (i = 0; i < arr.length; i++)
+                s += arr[i];
+            alert(s);
+            for (i = arr.length - 1; i >= 0; i--)
+                inv += arr[i];
+            alert(inv);
 
 
-    var p1 = {
-        'Nome': 'Mario',
-        'Cognome': 'Rossi',
-        'Eta': 99
-    }
-    var p2 = {
-        'Nome': 'Maria',
-        'Cognome': 'Verdi',
-        'Eta': 90
-    }
-    var p3 = {
-        'Nome': 'Mariuccio',
-        'Cognome': 'Gialli',
-        'Eta': 99
-    }
+            var p1 = {
+                'Nome': 'Mario',
+                'Cognome': 'Rossi',
+                'Eta': 99
+            }
+            var p2 = {
+                'Nome': 'Maria',
+                'Cognome': 'Verdi',
+                'Eta': 90
+            }
+            var p3 = {
+                'Nome': 'Mariuccio',
+                'Cognome': 'Gialli',
+                'Eta': 99
+            }
 
-    var arr_p = [];
+            var arr_p = [];
 
-    arr_p.push(p1);
-    arr_p.push(p2);
-    arr_p.push(p3);
+            arr_p.push(p1);
+            arr_p.push(p2);
+            arr_p.push(p3);
 
-    var table_head = '<table  class="table table-striped"><thead><tr><th>Nome</th><th>Cognome</th><th>Eta</th></tr></thead><tbody>';
-    document.write(table_head);
-    for (var i = 0; i < arr_p.length; i++) {
-        var row = '<tr>';
-        row += '<td>' + arr_p[i].Nome + '</td>';
-        row += '<td>' + arr_p[i].Cognome + '</td>';
-        row += '<td>' + arr_p[i].Eta + '</td>';
-        row += '</tr>';
-        document.write(row);
-    }
-    var table_foot = '</tbody></table>';
-    document.write(table_foot);
-</script>
+            var table_head = '<table  class="table table-striped"><thead><tr><th>Nome</th><th>Cognome</th><th>Eta</th></tr></thead><tbody>';
+            document.write(table_head);
+            for (var i = 0; i < arr_p.length; i++) {
+                var row = '<tr>';
+                row += '<td>' + arr_p[i].Nome + '</td>';
+                row += '<td>' + arr_p[i].Cognome + '</td>';
+                row += '<td>' + arr_p[i].Eta + '</td>';
+                row += '</tr>';
+                document.write(row);
+            }
+            var table_foot = '</tbody></table>';
+            document.write(table_foot);
+            */
+       
+
+    </script>
