@@ -44,7 +44,8 @@
             }).done(function (employee) {
                 $('#panel_heading').text(employee.FirstName + ' ' + employee.LastName);
                 $('#isactive').text(employee.IsActive);
-                $('#hiredate').text(employee.HireDate);
+                var d = new Date(employee.HireDate);
+                $('#hiredate').text(d.toDateString());
             });
         });
 
