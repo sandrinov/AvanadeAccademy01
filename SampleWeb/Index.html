@@ -25,11 +25,10 @@
 
     $(document).ready(function () {
         var api_key = '40c134aae99afa3d519e077b42be3859';
-        //https://samples.openweathermap.org/data/2.5/weather?q=milano&appid=b6907d289e10d714a6e88b30761fae22
         $('#btn_getwether').on('click', function () {
             var city = $('#city').val();
             var server = 'http://api.openweathermap.org/data/2.5/weather';
-            var url = server + '?lat=43.00&lon=10.60';
+            var url = server + '?lat=45.51&lon=9.22';
             url += '&appid=' + api_key;
 
             $.ajax({
