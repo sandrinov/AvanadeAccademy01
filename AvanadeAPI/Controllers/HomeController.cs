@@ -10,6 +10,7 @@ namespace AvanadeAPI.Controllers
    
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
             List<String> lst = new List<string>();
